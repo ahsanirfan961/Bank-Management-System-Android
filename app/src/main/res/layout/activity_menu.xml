@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Menu">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F2F2FF"
+        tools:context=".SignIn">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="579dp"
+            android:layout_height="252dp"
+            android:translationY="-120dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/circle" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="201dp"
+            android:layout_height="154dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.476"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/seguibl"
+            android:text="What I Have"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout_settings"
+            android:layout_width="242dp"
+            android:layout_height="397dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.52">
+
+            <LinearLayout
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/sendMoney_button"
+                    style="@style/Widget.AppCompat.ImageButton"
+                    android:layout_width="85dp"
+
+                    android:layout_height="85dp"
+                    android:background="@drawable/rounded_button"
+                    android:onClick="goto_verify"
+                    app:srcCompat="@mipmap/money_logo_foreground" />
+
+                <TextView
+                    android:id="@+id/textView111"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/seguibl"
+                    android:text="Send Money"
+                    android:textAlignment="center" />
+
+                <ImageButton
+                    android:id="@+id/accountButton"
+                    style="@android:style/Widget.Material.ImageButton"
+                    android:layout_width="85dp"
+
+                    android:layout_height="85dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_button"
+                    android:foreground="@drawable/click_feedback"
+                    android:onClick="goto_account"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/account" />
+
+                <TextView
+                    android:id="@+id/textView121"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/seguibl"
+                    android:text="Account"
+                    android:textAlignment="center" />
+
+                <ImageButton
+                    android:id="@+id/chequeBook_button"
+                    style="@android:style/Widget.Material.ImageButton"
+                    android:layout_width="85dp"
+
+                    android:layout_height="85dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rounded_button"
+                    android:foreground="@drawable/click_feedback"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/cheque" />
+
+                <TextView
+                    android:id="@+id/textView132"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/seguibl"
+                    android:text="Cheque Book"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/profile_button"
+                    style="@android:style/Widget.Material.ImageButton"
+                    android:layout_width="85dp"
+
+                    android:layout_height="85dp"
+                    android:background="@drawable/rounded_button"
+                    android:foreground="@drawable/click_feedback"
+                    android:onClick="goto_profilesetting"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/profile" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/seguibl"
+                    android:text="Profile Settings"
+                    android:textAlignment="center" />
+
+                <ImageButton
+                    android:id="@+id/cardButton"
+                    style="@android:style/Widget.Material.ImageButton"
+                    android:layout_width="85dp"
+
+                    android:layout_height="85dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_button"
+                    android:foreground="@drawable/click_feedback"
+                    android:onClick="goto_card"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/card" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/seguibl"
+                    android:text="Debit Cards"
+                    android:textAlignment="center" />
+
+                <ImageButton
+                    android:id="@+id/statementButton"
+                    style="@android:style/Widget.Material.ImageButton"
+                    android:layout_width="85dp"
+
+                    android:layout_height="85dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rounded_button"
+                    android:foreground="@drawable/click_feedback"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/statement" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/seguibl"
+                    android:text="E-Statement"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="340dp"
+            android:layout_height="174dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout_settings">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView145"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/seguibl"
+                    android:text="Account Name:"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/account_name"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/seguibl"
+                    android:text="---"
+                    android:textColor="#707CFF"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/seguibl"
+                    android:text="Account ID:"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/account_id"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/seguibl"
+                    android:text="-"
+                    android:textColor="#707CFF"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/balance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/seguibl"
+                android:text="0"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Current Balance\n(PKR)"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/refreshButton"
+            android:layout_width="23dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/circle_button"
+            android:scaleType="centerInside"
+            android:scaleX="3"
+            android:scaleY="3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.72"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout_settings"
+            app:layout_constraintVertical_bias="0.65999997"
+            app:srcCompat="@drawable/reload" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
