@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -15,7 +16,7 @@ public class PasswordChange extends AppCompatActivity {
 
     Button save;
     TextInputEditText old_pass, new_pass, confirm_pass;
-
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +26,7 @@ public class PasswordChange extends AppCompatActivity {
         old_pass = findViewById(R.id.old_password_edit);
         new_pass = findViewById(R.id.new_password_edit);
         confirm_pass = findViewById(R.id.confirm_password_edit);
+        progressBar = findViewById(R.id.pg_password_change);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,27 +46,54 @@ public class PasswordChange extends AppCompatActivity {
             Toast.makeText(this, "All fields required", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(old.equals(Data.sqlManager.getValue(this,"Application_User","Password",Data.CurrentUserID)))
+        if(!new_p.equals(confirm))
         {
-            if(new_p.equals(confirm))
+            Toast.makeText(this, "New Passwords don't match", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        new PasswordChangeTask().execute(old, new_p);
+    }
+
+    private class PasswordChangeTask extends android.os.AsyncTask<String, Void, Integer>
+    {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+            save.setEnabled(false);
+        }
+
+        @Override
+        protected Integer doInBackground(String... strings) {
+            if(strings[0].equals(Data.sqlManager.getValue(PasswordChange.this,"Application_User","Password",Data.CurrentUserID)))
             {
-                if(Data.sqlManager.setValue(this, "Application_User","Password", Data.CurrentUserID, new_p))
-                {
-                    Toast.makeText(this, "Password changed successfully", Toast.LENGTH_SHORT).show();
-                }
+                if(Data.sqlManager.setValue(PasswordChange.this, "Application_User","Password", Data.CurrentUserID, strings[1]))
+                    return 1;
                 else
-                {
-                    Toast.makeText(this, "Password change failed\nTry Again Later", Toast.LENGTH_SHORT).show();
-                }
+                    return 0;
             }
             else
-            {
-                Toast.makeText(this, "New Passwords don't match", Toast.LENGTH_SHORT).show();
-            }
+                return -1;
         }
-        else
-        {
-            Toast.makeText(this, "Incorrect old password", Toast.LENGTH_SHORT).show();
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+            progressBar.setVisibility(View.INVISIBLE);
+            save.setEnabled(true);
+            //Flags: 1 = Success, 0 = Failure, -1 = Wrong Password
+            switch (integer)
+            {
+                case 1:
+                    Toast.makeText(PasswordChange.this, "Password Changed Successfully", Toast.LENGTH_SHORT).show();
+                    break;
+                case 0:
+                    Toast.makeText(PasswordChange.this, "Password Change Failed", Toast.LENGTH_SHORT).show();
+                    break;
+                case -1:
+                    Toast.makeText(PasswordChange.this, "Wrong Password", Toast.LENGTH_SHORT).show();
+                    break;
+            }
         }
     }
 }

@@ -3,23 +3,21 @@ package com.example.dg_bank;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.QuickContactBadge;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Objects;
 
 public class Menu extends AppCompatActivity {
 
     TextView account_name, account_id, balance;
     ImageButton money, settings, account, cards, book, statements;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +33,14 @@ public class Menu extends AppCompatActivity {
         book = findViewById(R.id.chequeBook_button);
         statements = findViewById(R.id.statementButton);
         balance = findViewById(R.id.balance);
-
+        progressBar = findViewById(R.id.pg_menu);
         ImageButton refresh = findViewById(R.id.refreshButton);
+
+        progressBar.setVisibility(View.INVISIBLE);
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                update();
-                Toast.makeText(Menu.this, "Balanced Refreshed!", Toast.LENGTH_SHORT).show();
+                new UpdateMenuTask().execute();
             }
         });
         update();
@@ -50,23 +49,20 @@ public class Menu extends AppCompatActivity {
     public void update() {
         String name = "---";
         String b = "---";
-        boolean accountExist = Data.sqlManager.doesExist(this, "Personal_Info", "User_ID", Data.CurrentUserID);
-        if(accountExist) {
-            if (Objects.equals(Data.sqlManager.getValue(this, "Personal_Info", "Gender", Data.CurrentUserID), "1")) {
+        if(Data.accountExist) {
+            if (Objects.equals(Data.CurrentGender, "1")) {
                 name = "Mr. ";
             } else {
                 name = "Mrs. ";
             }
-            name += Data.sqlManager.getName(this, Data.CurrentUserID);
-            Data.CurrentUserName = name;
-            b = Data.sqlManager.getValue(this, "Personal_Info", "Balance", Data.CurrentUserID);
+            name += Data.CurrentUserName;
+            b = Data.CurrentBalance;
         }
 
         account_name.setText(name);
         account_id.setText(Data.CurrentUserID);
-
         balance.setText(b);
-        if(accountExist)
+        if(Data.accountExist)
         {
             money.setEnabled(true);
             cards.setEnabled(true);
@@ -82,7 +78,36 @@ public class Menu extends AppCompatActivity {
         }
     }
 
-    public void goto_profilesetting(View v)
+    private class UpdateMenuTask extends AsyncTask<Void, Void, Void>
+    {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Data.accountExist = Data.sqlManager.doesExist(Menu.this, "Personal_Info", "User_ID", Data.CurrentUserID);
+            if(Data.accountExist)
+            {
+                Data.CurrentBalance = Data.sqlManager.getBalance(Menu.this, Data.CurrentUserID);
+                Data.CurrentGender = Data.sqlManager.getValue(Menu.this, "Personal_Info", "Gender", Data.CurrentUserID);
+            }
+            update();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(Menu.this, "Balanced Refreshed!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    public void goto_profileSetting(View v)
     {
         Intent intent = new Intent(this, ProfileSettings.class);
         startActivity(intent);

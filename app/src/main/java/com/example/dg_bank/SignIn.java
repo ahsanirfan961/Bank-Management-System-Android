@@ -1,20 +1,24 @@
 package com.example.dg_bank;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.sql.*;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Objects;
 
 public class SignIn extends AppCompatActivity {
     EditText username, password;
-
+    ProgressBar progressBar;
+    Button signIn;
+    boolean status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,29 +27,75 @@ public class SignIn extends AppCompatActivity {
 
         username = findViewById(R.id.fathername_edit);
         password = findViewById(R.id.mname_edit);
-
+        progressBar = findViewById(R.id.pg_sign_in);
+        progressBar.setVisibility(View.INVISIBLE);
+        signIn = findViewById(R.id.signin_button);
     }
     public void goto_menu(View v) {
+        progressBar.setVisibility(View.VISIBLE);
+        status = false;
         String user = username.getText().toString().trim();
         String pass = password.getText().toString();
         if (user.equals("") || pass.equals("")) {
             Toast.makeText(this, "All fields required", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.INVISIBLE);
             return;
         }
+        new SignInAsyncTask().execute(user, pass);
+    }
 
-        String[] credentials = Data.sqlManager.getRow("Application_User", new String[]{"ID", "First_Name", "Last_Name", "Email", "Password"}, new String[]{"Email", user});
-        if (credentials == null)
-            Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
-        else {
-            if(Objects.equals(credentials[4], pass))
+
+    private class SignInAsyncTask extends AsyncTask<String, Void, String>
+    {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+            signIn.setEnabled(false);
+        }
+        @Override
+        protected String doInBackground(String... strings) {
+            String[] credentials = Data.sqlManager.getRow("Application_User", new String[]{"ID", "First_Name", "Last_Name", "Email", "Password"}, new String[]{"Email", username.getText().toString().trim()});
+            if (credentials == null)
             {
-                Data.CurrentUserID = credentials[0];
-                Intent intent = new Intent(this, Menu.class);
-                startActivity(intent);
+                progressBar.setVisibility(View.INVISIBLE);
+                status = false;
             }
             else {
-                Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
+                if(Objects.equals(credentials[4], password.getText().toString().trim()))
+                {
+                    Data.CurrentUserID = credentials[0];
+                    Data.CurrentUserName = credentials[1] + " " + credentials[2];
+                    Data.accountExist = Data.sqlManager.doesExist(SignIn.this, "Personal_Info", "User_ID", Data.CurrentUserID);
+                    if(Data.accountExist)
+                    {
+                        Data.CurrentBalance = Data.sqlManager.getBalance(SignIn.this, Data.CurrentUserID);
+                        Data.CurrentGender = Data.sqlManager.getValue(SignIn.this, "Personal_Info", "Gender", Data.CurrentUserID);
+                    }
+                    status = true;
+                }
+                else {
+                    status = false;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            progressBar.setVisibility(View.INVISIBLE);
+            signIn.setEnabled(true);
+            if(status)
+            {
+                Intent intent = new Intent(SignIn.this, Menu.class);
+                startActivity(intent);
+            }
+            else
+            {
+                Toast.makeText(SignIn.this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
 }

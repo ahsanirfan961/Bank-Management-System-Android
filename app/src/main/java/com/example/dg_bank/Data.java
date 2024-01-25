@@ -8,6 +8,9 @@ public class Data {
     static public SQLServerConnect sqlManager = new SQLServerConnect();
     static public String CurrentUserID;
     static public String CurrentUserName;
+    static public String CurrentBalance;
+    static public String CurrentGender;
+    static public boolean accountExist;
     static public String Receiver_ID;
     static public String FirstName;
     static public String LastName;
