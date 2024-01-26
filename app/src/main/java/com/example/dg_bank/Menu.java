@@ -79,6 +79,10 @@ public class Menu extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             progressBar.setVisibility(View.VISIBLE);
+            if(!Data.sqlManager.checkConn(Menu.this)) {
+                progressBar.setVisibility(View.INVISIBLE);
+                cancel(true);
+            }
         }
 
         @Override
@@ -86,8 +90,8 @@ public class Menu extends AppCompatActivity {
             Data.accountExist = Data.sqlManager.doesExist("Personal_Info", "User_ID", Data.CurrentUserID);
             if(Data.accountExist)
             {
-                Data.CurrentBalance = Data.sqlManager.getBalance(Menu.this, Data.CurrentUserID);
-                Data.CurrentGender = Data.sqlManager.getValue(Menu.this, "Personal_Info", "Gender", Data.CurrentUserID);
+                Data.CurrentBalance = Data.sqlManager.getBalance(Data.CurrentUserID);
+                Data.CurrentGender = Data.sqlManager.getValue("Personal_Info", "Gender", Data.CurrentUserID);
             }
             update();
             return null;

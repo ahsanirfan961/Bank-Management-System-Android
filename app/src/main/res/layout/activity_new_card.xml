@@ -71,7 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/mastercard" />
+                    app:srcCompat="@drawable/master" />
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -108,19 +108,11 @@
                 android:text="Card Title:" />
 
             <EditText
-                android:id="@+id/editTextText6"
+                android:id="@+id/card_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text" />
-
-            <CheckBox
-                android:id="@+id/tpin_box"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="90dp"
-                android:fontFamily="@font/seguibl"
-                android:text="Want T-PIN?" />
 
             <TextView
                 android:id="@+id/textView36"
@@ -138,8 +130,30 @@
                 android:inputType="numberPassword"
                 android:maxLength="4" />
 
-        </LinearLayout>
+            <Button
+                android:id="@+id/order_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:fontFamily="@font/seguibl"
+                android:onClick="order"
+                android:text="Order"
+                android:textSize="24sp" />
 
+        </LinearLayout>
+        <ProgressBar
+            android:id="@+id/pg_new_card"
+            android:layout_width="100sp"
+            android:layout_height="100sp"
+            android:layout_centerInParent="true"
+            android:elevation="10sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView10"
+            app:layout_constraintVertical_bias="0.372" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

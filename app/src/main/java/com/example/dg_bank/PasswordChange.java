@@ -65,9 +65,9 @@ public class PasswordChange extends AppCompatActivity {
 
         @Override
         protected Integer doInBackground(String... strings) {
-            if(strings[0].equals(Data.sqlManager.getValue(PasswordChange.this,"Application_User","Password",Data.CurrentUserID)))
+            if(strings[0].equals(Data.sqlManager.getValue("Application_User","Password",Data.CurrentUserID)))
             {
-                if(Data.sqlManager.setValue(PasswordChange.this, "Application_User","Password", Data.CurrentUserID, strings[1]))
+                if(Data.sqlManager.setValue("Application_User","Password", Data.CurrentUserID, strings[1]))
                     return 1;
                 else
                     return 0;

@@ -90,20 +90,20 @@ public class AccountSettings extends AppCompatActivity {
         @Override
         protected String[] doInBackground(Void... voids) {
             String[] data = new String[14];
-            data[0] = Data.sqlManager.getValue(AccountSettings.this, "Personal_Info", "CNIC_Issue", Data.CurrentUserID);
-            data[1] = Data.sqlManager.getValue(AccountSettings.this, "Personal_Info", "CNIC_Expiry", Data.CurrentUserID);
-            data[2] = Data.sqlManager.getValue(AccountSettings.this, "Personal_Info", "Married", Data.CurrentUserID);
-            data[3] = Data.sqlManager.getValue(AccountSettings.this, "Personal_Info", "Education", Data.CurrentUserID);
-            data[4] = Data.sqlManager.getValue(AccountSettings.this, "Personal_Info", "Profession", Data.CurrentUserID);
-            data[5] = Data.sqlManager.getValue(AccountSettings.this, "Personal_Info", "Residence", Data.CurrentUserID);
-            data[6] = Data.sqlManager.getValue(AccountSettings.this, "Contact", "Phone", Data.CurrentUserID);
-            data[7] = Data.sqlManager.getValue(AccountSettings.this, "Contact", "Mobile", Data.CurrentUserID);
-            data[8] = Data.sqlManager.getValue(AccountSettings.this, "Contact", "PAddress", Data.CurrentUserID);
-            data[9] = Data.sqlManager.getValue(AccountSettings.this, "Contact", "CAddress", Data.CurrentUserID);
-            data[10] = Data.sqlManager.getValue(AccountSettings.this, "Contact", "City", Data.CurrentUserID);
-            data[11] = Data.sqlManager.getValue(AccountSettings.this, "Contact", "Postal_Code", Data.CurrentUserID);
-            data[12] = Data.sqlManager.getValue(AccountSettings.this, "Contact", "Email", Data.CurrentUserID);
-            data[13] = Data.sqlManager.getValue(AccountSettings.this, "Contact", "Country", Data.CurrentUserID);
+            data[0] = Data.sqlManager.getValue("Personal_Info", "CNIC_Issue", Data.CurrentUserID);
+            data[1] = Data.sqlManager.getValue("Personal_Info", "CNIC_Expiry", Data.CurrentUserID);
+            data[2] = Data.sqlManager.getValue("Personal_Info", "Married", Data.CurrentUserID);
+            data[3] = Data.sqlManager.getValue("Personal_Info", "Education", Data.CurrentUserID);
+            data[4] = Data.sqlManager.getValue("Personal_Info", "Profession", Data.CurrentUserID);
+            data[5] = Data.sqlManager.getValue("Personal_Info", "Residence", Data.CurrentUserID);
+            data[6] = Data.sqlManager.getValue("Contact", "Phone", Data.CurrentUserID);
+            data[7] = Data.sqlManager.getValue("Contact", "Mobile", Data.CurrentUserID);
+            data[8] = Data.sqlManager.getValue("Contact", "PAddress", Data.CurrentUserID);
+            data[9] = Data.sqlManager.getValue("Contact", "CAddress", Data.CurrentUserID);
+            data[10] = Data.sqlManager.getValue("Contact", "City", Data.CurrentUserID);
+            data[11] = Data.sqlManager.getValue("Contact", "Postal_Code", Data.CurrentUserID);
+            data[12] = Data.sqlManager.getValue("Contact", "Email", Data.CurrentUserID);
+            data[13] = Data.sqlManager.getValue("Contact", "Country", Data.CurrentUserID);
             return data;
         }
 
@@ -165,20 +165,20 @@ public class AccountSettings extends AppCompatActivity {
         String Email = email_edit.getText().toString();
         String Country = getStringIndexInArray(country_spinner.getSelectedItem().toString(), R.array.Countries, getResources());
 
-        Data.sqlManager.setValue(this, "Personal_Info", "CNIC_Expiry", Data.CurrentUserID, CNIC_Expiry);
-        Data.sqlManager.setValue(this, "Personal_Info", "CNIC_Issue", Data.CurrentUserID, CNIC_Issue);
-        Data.sqlManager.setValue(this, "Personal_Info", "Married", Data.CurrentUserID, Marital_Status);
-        Data.sqlManager.setValue(this, "Personal_Info", "Education", Data.CurrentUserID, Education);
-        Data.sqlManager.setValue(this, "Personal_Info", "Profession", Data.CurrentUserID, Profession);
-        Data.sqlManager.setValue(this, "Personal_Info", "Residence", Data.CurrentUserID, Residence);
-        Data.sqlManager.setValue(this, "Contact", "Phone", Data.CurrentUserID, Phone);
-        Data.sqlManager.setValue(this, "Contact", "Mobile", Data.CurrentUserID, Mobile);
-        Data.sqlManager.setValue(this, "Contact", "PAddress", Data.CurrentUserID, PAddress);
-        Data.sqlManager.setValue(this, "Contact", "CAddress", Data.CurrentUserID, CAddress);
-        Data.sqlManager.setValue(this, "Contact", "City", Data.CurrentUserID, City);
-        Data.sqlManager.setValue(this, "Contact", "Postal_Code", Data.CurrentUserID, Postal_Code);
-        Data.sqlManager.setValue(this, "Contact", "Email", Data.CurrentUserID, Email);
-        Data.sqlManager.setValue(this, "Contact", "Country", Data.CurrentUserID, Country);
+        Data.sqlManager.setValue("Personal_Info", "CNIC_Expiry", Data.CurrentUserID, CNIC_Expiry);
+        Data.sqlManager.setValue("Personal_Info", "CNIC_Issue", Data.CurrentUserID, CNIC_Issue);
+        Data.sqlManager.setValue("Personal_Info", "Married", Data.CurrentUserID, Marital_Status);
+        Data.sqlManager.setValue("Personal_Info", "Education", Data.CurrentUserID, Education);
+        Data.sqlManager.setValue("Personal_Info", "Profession", Data.CurrentUserID, Profession);
+        Data.sqlManager.setValue("Personal_Info", "Residence", Data.CurrentUserID, Residence);
+        Data.sqlManager.setValue("Contact", "Phone", Data.CurrentUserID, Phone);
+        Data.sqlManager.setValue("Contact", "Mobile", Data.CurrentUserID, Mobile);
+        Data.sqlManager.setValue("Contact", "PAddress", Data.CurrentUserID, PAddress);
+        Data.sqlManager.setValue("Contact", "CAddress", Data.CurrentUserID, CAddress);
+        Data.sqlManager.setValue("Contact", "City", Data.CurrentUserID, City);
+        Data.sqlManager.setValue("Contact", "Postal_Code", Data.CurrentUserID, Postal_Code);
+        Data.sqlManager.setValue("Contact", "Email", Data.CurrentUserID, Email);
+        Data.sqlManager.setValue("Contact", "Country", Data.CurrentUserID, Country);
     }
 
     private class UpdateTask extends AsyncTask<Void, Void, Void>

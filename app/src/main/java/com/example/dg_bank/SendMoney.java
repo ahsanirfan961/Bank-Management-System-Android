@@ -12,9 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class SendMoney extends AppCompatActivity {
 
@@ -34,21 +32,13 @@ public class SendMoney extends AppCompatActivity {
         send_button = findViewById(R.id.send_button);
         progressBar = findViewById(R.id.pg_send_money);
 
-        refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new RefreshBalanceTask().execute();
-                Toast.makeText(SendMoney.this, "Balance Refreshed!", Toast.LENGTH_SHORT).show();
-            }
+        refresh.setOnClickListener(view -> {
+            new RefreshBalanceTask().execute();
+            Toast.makeText(SendMoney.this, "Balance Refreshed!", Toast.LENGTH_SHORT).show();
         });
         new RefreshBalanceTask().execute();
         new UpdateTask().execute();
-        send_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new SendMoneyTask().execute();
-            }
-        });
+        send_button.setOnClickListener(view -> new SendMoneyTask().execute());
 
     }
 
@@ -58,7 +48,7 @@ public class SendMoney extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             sender.setText(String.format("%s | %s", Data.CurrentUserID, Data.CurrentUserName));
-            receiver.setText(String.format("%s | %s", Data.Receiver_ID, Data.sqlManager.getName(SendMoney.this, Data.Receiver_ID)));
+            receiver.setText(String.format("%s | %s", Data.Receiver_ID, Data.sqlManager.getName(Data.Receiver_ID)));
             return null;
         }
     }
@@ -73,7 +63,7 @@ public class SendMoney extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            balance.setText(Data.sqlManager.getBalance(SendMoney.this, Data.CurrentUserID));
+            balance.setText(Data.sqlManager.getBalance(Data.CurrentUserID));
             return null;
         }
 
@@ -94,19 +84,28 @@ public class SendMoney extends AppCompatActivity {
 
         @Override
         protected Integer doInBackground(Void... voids) {
-            int sender_balance = Integer.parseInt(Data.sqlManager.getBalance(SendMoney.this, Data.CurrentUserID));
-            int receiver_balance = Integer.parseInt(Data.sqlManager.getBalance(SendMoney.this, Data.Receiver_ID));
+            int sender_balance = Integer.parseInt(Data.sqlManager.getBalance(Data.CurrentUserID));
+            int receiver_balance = Integer.parseInt(Data.sqlManager.getBalance(Data.Receiver_ID));
             int amountS = Integer.parseInt(amount.getText().toString());
 
             if(sender_balance>=amountS)
             {
-                if(Data.sqlManager.setBalance(SendMoney.this, Data.Receiver_ID, Integer.toString(receiver_balance+amountS)))
+                if(Data.sqlManager.setBalance(Data.Receiver_ID, Integer.toString(receiver_balance+amountS)))
                 {
-                    if(Data.sqlManager.setBalance(SendMoney.this, Data.CurrentUserID, Integer.toString(sender_balance-amountS)))
+                    if(Data.sqlManager.setBalance(Data.CurrentUserID, Integer.toString(sender_balance-amountS))) {
+                        String s_id = Data.CurrentUserID;
+                        for(int i=0;i<4-s_id.length();i++)
+                            s_id = "0" + s_id;
+                        String r_id = Data.Receiver_ID;
+                        for(int i=0;i<4-r_id.length();i++)
+                            r_id = "0" + r_id;
+                        Data.sqlManager.insertRow("Statement", new String[]{"ID", "User_ID", "date", "description", "debit", "balance"}, new String[]{String.valueOf(Data.sqlManager.getNextID( "Statement")), Data.CurrentUserID, LocalDate.now().toString(), "Online Cash Transferred from  "+s_id+" to "+r_id,Integer.toString(amountS), Integer.toString(sender_balance - amountS)});
+                        Data.sqlManager.insertRow("Statement", new String[]{"ID", "User_ID", "date", "description", "credit", "balance"}, new String[]{String.valueOf(Data.sqlManager.getNextID( "Statement")), Data.Receiver_ID, LocalDate.now().toString(),"Online Cash Transferred from  "+s_id+" to "+r_id, Integer.toString(amountS), Integer.toString(receiver_balance + amountS)});
                         return 1;
+                    }
                     else
                     {
-                        Data.sqlManager.setBalance(SendMoney.this, Data.Receiver_ID, Integer.toString(receiver_balance));
+                        Data.sqlManager.setBalance(Data.Receiver_ID, Integer.toString(receiver_balance));
                         return 0;
                     }
                 }

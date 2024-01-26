@@ -1,11 +1,13 @@
 package com.example.dg_bank;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +20,7 @@ public class SignUp extends AppCompatActivity {
     EditText fname, lname, username, password, repassword;
     CheckBox terms;
     Button signupButton;
-
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,17 +34,15 @@ public class SignUp extends AppCompatActivity {
         repassword = findViewById(R.id.repassword_entry);
         terms = findViewById(R.id.terms);
         signupButton = findViewById(R.id.signup_button);
+        progressBar = findViewById(R.id.pg_sign_up);
 
         // Set click listener for the sign-up button
-        signupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (terms.isChecked()) {
-                    // If terms are accepted, save user data to the database
-                    saveUserDataToDatabase();
-                } else {
-                    Toast.makeText(SignUp.this, "Please accept the terms and conditions.", Toast.LENGTH_SHORT).show();
-                }
+        signupButton.setOnClickListener(v -> {
+            if (terms.isChecked()) {
+                // If terms are accepted, save user data to the database
+                saveUserDataToDatabase();
+            } else {
+                Toast.makeText(SignUp.this, "Please accept the terms and conditions.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -66,31 +66,40 @@ public class SignUp extends AppCompatActivity {
             Toast.makeText(this, "Passwords do not match.", Toast.LENGTH_SHORT).show();
             return;
         }
+        new SubmitTask().execute(firstName, lastName, userName, userPassword);
+    }
 
-        // Perform database insertion
-        try {
-             // Assuming you have a method in SQLServerConnect class to establish the connection
-            if (Data.sqlManager.conn != null) {
-                // Create a prepared statement to insert data into the database
-                int ID = Data.sqlManager.getNextID(this, "Application_User");
-                String insertQuery = "INSERT INTO Application_User (ID, First_Name, Last_Name, Email, Password) VALUES ('"+Integer.toString(ID)+"', '"+firstName+"','"+lastName+"' , '"+userName+"', '"+userPassword+"')";
-                Statement statement = Data.sqlManager.conn.createStatement();
-
-                // Execute the insert query
-                int rowsAffected = statement.executeUpdate(insertQuery);
-                Log.println(Log.ASSERT,"3","Reached down");
-                if (rowsAffected > 0) {
-                    Toast.makeText(this, "User registered successfully.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Failed to register user.", Toast.LENGTH_SHORT).show();
-                }
-
-                // Close the prepared statement and connection
-                statement.close();
+    private class SubmitTask extends AsyncTask<String, Void, Boolean>
+    {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+            signupButton.setEnabled(false);
+            if(!Data.sqlManager.checkConn(SignUp.this)) {
+                progressBar.setVisibility(View.INVISIBLE);
+                signupButton.setEnabled(true);
+                cancel(true);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Database error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            if(Data.sqlManager.doesExist("Application_User", "Email", strings[2]))
+                return false;
+            Data.sqlManager.insertRow("Application_User", new String[]{"ID", "First_Name", "Last_Name", "Email", "Password"}, new String[]{Integer.toString(Data.sqlManager.getNextID("Application_User")), strings[0], strings[1], strings[2], strings[3]});
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean dontExist) {
+            super.onPostExecute(dontExist);
+            progressBar.setVisibility(View.INVISIBLE);
+            signupButton.setEnabled(true);
+            if(dontExist)
+                Toast.makeText(SignUp.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(SignUp.this, "Username already exists!", Toast.LENGTH_SHORT).show();
         }
     }
 

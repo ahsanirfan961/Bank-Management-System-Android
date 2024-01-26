@@ -55,7 +55,7 @@ public class ChequeBook extends AppCompatActivity {
             if(standingInstructions.equals("")){
                 standingInstructions = "None";
             }
-            Data.sqlManager.insertRow(ChequeBook.this, "Cheque", new String[]{"ID", "User_ID", "No_of_ChequeBook", "checks", "special1", "special2"}, new String[]{String.valueOf(Data.sqlManager.getNextID(ChequeBook.this,"Cheque")), Data.CurrentUserID, numberOfBooks, numberOfCheques, specialInstructions, standingInstructions});
+            Data.sqlManager.insertRow("Cheque", new String[]{"ID", "User_ID", "No_of_ChequeBook", "checks", "special1", "special2"}, new String[]{String.valueOf(Data.sqlManager.getNextID("Cheque")), Data.CurrentUserID, numberOfBooks, numberOfCheques, specialInstructions, standingInstructions});
             return null;
         }
 

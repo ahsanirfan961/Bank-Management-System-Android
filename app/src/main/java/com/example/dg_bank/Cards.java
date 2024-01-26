@@ -8,6 +8,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.sql.ResultSet;
+
 public class Cards extends AppCompatActivity {
     Button myCards, newCard;
     @Override
@@ -19,23 +21,45 @@ public class Cards extends AppCompatActivity {
         new UpdateTask().execute();
     }
 
-    private class UpdateTask extends AsyncTask<Void, Void, Boolean>
+    private class UpdateTask extends AsyncTask<Void, Void, Boolean[]>
     {
         @Override
-        protected Boolean doInBackground(Void... voids) {
-            if(Data.sqlManager.doesExist("Card", "User_ID", Data.CurrentUserID))
-                return true;
-            else
-                return false;
+        protected Boolean[] doInBackground(Void... voids) {
+            Boolean[] aBoolean = new Boolean[2];
+            ResultSet rs = Data.sqlManager.getQuery("SELECT * FROM Card WHERE User_ID = '"+Data.CurrentUserID+"'");
+            int rowCount = 0;
+            try
+            {
+                while (rs.next()) {
+                    rowCount++;
+                }
+                if(rowCount>0)
+                    aBoolean[0] = true;
+                else
+                    aBoolean[0] = false;
+                if(rowCount==3)
+                    aBoolean[1] = false;
+                else
+                    aBoolean[1] = true;
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            return aBoolean;
         }
 
         @Override
-        protected void onPostExecute(Boolean aBoolean) {
+        protected void onPostExecute(Boolean[] aBoolean) {
             super.onPostExecute(aBoolean);
-            if(aBoolean)
+            if(aBoolean[0])
                 myCards.setEnabled(true);
             else
                 myCards.setEnabled(false);
+            if(aBoolean[1])
+                newCard.setEnabled(true);
+            else
+                newCard.setEnabled(false);
         }
     }
 

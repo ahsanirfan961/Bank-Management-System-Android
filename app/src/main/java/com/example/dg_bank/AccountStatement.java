@@ -2,9 +2,7 @@ package com.example.dg_bank;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -45,10 +43,10 @@ public class AccountStatement extends AppCompatActivity {
         @Override
         protected String[] doInBackground(Void... voids) {
             String[] data = new String[3];
-            data[0] = Data.sqlManager.getValue(AccountStatement.this, "Contact", "PAddress", Data.CurrentUserID);
-            data[1] = Data.sqlManager.getValue(AccountStatement.this, "Personal_Info", "CNIC", Data.CurrentUserID);
-            data[2] = Data.sqlManager.getValue(AccountStatement.this, "Account", "Currency", Data.CurrentUserID);
-            ResultSet rs = Data.sqlManager.getQuery("SELECT date, debit, credit, balance FROM Statement WHERE User_ID = '" + Data.CurrentUserID + "'");
+            data[0] = Data.sqlManager.getValue("Contact", "PAddress", Data.CurrentUserID);
+            data[1] = Data.sqlManager.getValue("Personal_Info", "CNIC", Data.CurrentUserID);
+            data[2] = Data.sqlManager.getValue("Account", "Currency", Data.CurrentUserID);
+            ResultSet rs = Data.sqlManager.getQuery("SELECT date, debit, credit, balance FROM Statement WHERE User_ID = '" + Data.CurrentUserID + "' ORDER BY date DESC");
             List<String[]> list = new ArrayList<>();
             try {
                 while (rs.next()) {

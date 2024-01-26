@@ -328,9 +328,9 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string-array name="Card_Type">
-        <item>Visa Card</item>
-        <item>Master Card</item>
-        <item>Pakpay Card</item>
+        <item>Visa Debit Card</item>
+        <item>Mastercard Debit Card</item>
+        <item>Paypak Debit Card</item>
     </string-array>
     <string-array name="Cheques">
         <item>25</item>

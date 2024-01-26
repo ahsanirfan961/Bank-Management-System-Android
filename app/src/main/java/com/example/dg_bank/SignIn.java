@@ -51,6 +51,11 @@ public class SignIn extends AppCompatActivity {
             super.onPreExecute();
             progressBar.setVisibility(View.VISIBLE);
             signIn.setEnabled(false);
+            if(!Data.sqlManager.checkConn(SignIn.this)) {
+                progressBar.setVisibility(View.INVISIBLE);
+                signIn.setEnabled(true);
+                cancel(true);
+            }
         }
         @Override
         protected String doInBackground(String... strings) {
@@ -68,8 +73,8 @@ public class SignIn extends AppCompatActivity {
                     Data.accountExist = Data.sqlManager.doesExist("Personal_Info", "User_ID", Data.CurrentUserID);
                     if(Data.accountExist)
                     {
-                        Data.CurrentBalance = Data.sqlManager.getBalance(SignIn.this, Data.CurrentUserID);
-                        Data.CurrentGender = Data.sqlManager.getValue(SignIn.this, "Personal_Info", "Gender", Data.CurrentUserID);
+                        Data.CurrentBalance = Data.sqlManager.getBalance(Data.CurrentUserID);
+                        Data.CurrentGender = Data.sqlManager.getValue("Personal_Info", "Gender", Data.CurrentUserID);
                     }
                     status = true;
                 }

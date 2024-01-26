@@ -108,9 +108,9 @@ public class ProfileSettings extends AppCompatActivity {
 
     public void update()
     {
-        fname.setText(Data.sqlManager.getValue(this, "Application_User", "First_Name", Data.CurrentUserID));
-        lname.setText(Data.sqlManager.getValue(this, "Application_User", "Last_Name", Data.CurrentUserID));
-        username.setText(Data.sqlManager.getValue(this, "Application_User", "Email", Data.CurrentUserID));
+        fname.setText(Data.sqlManager.getValue("Application_User", "First_Name", Data.CurrentUserID));
+        lname.setText(Data.sqlManager.getValue("Application_User", "Last_Name", Data.CurrentUserID));
+        username.setText(Data.sqlManager.getValue("Application_User", "Email", Data.CurrentUserID));
     }
 
     private class UpdateTask extends android.os.AsyncTask<Void, Void, Void>

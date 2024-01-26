@@ -3,6 +3,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.StrictMode;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.sql.*;
 import java.util.Objects;
@@ -41,24 +42,32 @@ public class SQLServerConnect {
         }
     }
 
-    public int getNextID(Context context, String tableName) {
+    public boolean checkConn(Context context)
+    {
+        if(conn==null)
+        {
+            Toast.makeText(context, "Can't connect to the server", Toast.LENGTH_SHORT).show();
+            getConn();
+            return false;
+        }
+        return true;
+    }
+
+    public int getNextID(String tableName) {
         int nextID = 1; // Default value if the table is empty or no rows are found.
         try {
-            // Assuming you have a method in SQLServerConnect class to establish the connection
-            if (conn != null) {
-                String selectQuery = "SELECT COALESCE(MAX(ID), 0) FROM "+tableName;
-                Statement statement = conn.createStatement();
+            String selectQuery = "SELECT COALESCE(MAX(ID), 0) FROM "+tableName;
+            Statement statement = conn.createStatement();
 
-                // Execute the select query
-                ResultSet resultSet = statement.executeQuery(selectQuery);
-                if (resultSet.next()) {
-                    nextID = resultSet.getInt(1) + 1;
-                }
-
-                // Close the result set, prepared statement, and connection
-                resultSet.close();
-                statement.close();
+            // Execute the select query
+            ResultSet resultSet = statement.executeQuery(selectQuery);
+            if (resultSet.next()) {
+                nextID = resultSet.getInt(1) + 1;
             }
+
+            // Close the result set, prepared statement, and connection
+            resultSet.close();
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -66,64 +75,50 @@ public class SQLServerConnect {
         return nextID;
     }
 
-    public String getName(Context context, String id)
+    public String getName(String id)
     {
         try {
-            // Assuming you have a method in SQLServerConnect class to establish the connection
-            if (conn != null) {
-
-                String query = "SELECT FirstName, SecondName FROM Personal_Info WHERE User_ID = ?";
-                PreparedStatement statement = conn.prepareStatement(query);
-                statement.setInt(1, Integer.parseInt(id));
-                ResultSet rs = statement.executeQuery();
-                if (rs.next()) {
-                    String tmp = rs.getString(1) + " " + rs.getString(2);
-                    return tmp;
-                }
+            String query = "SELECT FirstName, SecondName FROM Personal_Info WHERE User_ID = ?";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, Integer.parseInt(id));
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                String tmp = rs.getString(1) + " " + rs.getString(2);
+                return tmp;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return "null";
     }
 
-    public String getBalance(Context context, String id)
+    public String getBalance(String id)
     {
         try {
-            // Assuming you have a method in SQLServerConnect class to establish the connection
-            if (conn != null) {
-
-                String query = "SELECT Balance FROM Personal_Info WHERE User_ID = ?";
-                PreparedStatement statement = conn.prepareStatement(query);
-                statement.setInt(1, Integer.parseInt(id));
-                ResultSet rs = statement.executeQuery();
-                if (rs.next()) {
-                    String tmp = rs.getString(1);
-                    return tmp;
-                }
+            String query = "SELECT Balance FROM Personal_Info WHERE User_ID = ?";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, Integer.parseInt(id));
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                String tmp = rs.getString(1);
+                return tmp;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return "null";
     }
 
-    public boolean setBalance(Context context, String id, String amount)
+    public boolean setBalance(String id, String amount)
     {
         try {
-            if (conn != null) {
-
-                String query = "UPDATE Personal_Info SET Balance = ? WHERE User_ID = ?";
-                PreparedStatement statement = conn.prepareStatement(query);
-                statement.setInt(2, Integer.parseInt(id));
-                statement.setInt(1, Integer.parseInt(amount));
-                statement.executeUpdate();
-                if(Objects.equals(getBalance(context, id), amount))
-                    return true;
-            }
-
+            String query = "UPDATE Personal_Info SET Balance = ? WHERE User_ID = ?";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(2, Integer.parseInt(id));
+            statement.setInt(1, Integer.parseInt(amount));
+            statement.executeUpdate();
+            if(Objects.equals(getBalance(id), amount))
+                return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -131,61 +126,50 @@ public class SQLServerConnect {
         return false;
     }
 
-    public String getValue(Context context, String TableName, String ColumnName, String id)
+    public String getValue(String TableName, String ColumnName, String id)
     {
         try {
-            if (conn != null) {
-                String query;
-                if(TableName.equals("Application_User"))
-                {
-                    query = "SELECT " + ColumnName + " FROM " + TableName + " WHERE ID = ?";
-                }
-                else
-                {
-                    query = "SELECT " + ColumnName + " FROM " + TableName + " WHERE User_ID = ?";
-                }
+            String query;
+            if(TableName.equals("Application_User"))
+                query = "SELECT " + ColumnName + " FROM " + TableName + " WHERE ID = ?";
+            else
+                query = "SELECT " + ColumnName + " FROM " + TableName + " WHERE User_ID = ?";
 
-                PreparedStatement statement = conn.prepareStatement(query);
-                statement.setInt(1, Integer.parseInt(id));
-                ResultSet rs = statement.executeQuery();
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, Integer.parseInt(id));
+            ResultSet rs = statement.executeQuery();
 
-                if (rs.next()) {
+            if (rs.next()) {
 //                    Toast.makeText(context, rs.getString(1), Toast.LENGTH_SHORT).show();
-                    String tmp = rs.getString(1);
-                    return tmp;
-                }
+                String tmp = rs.getString(1);
+                return tmp;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return "null";
     }
 
-    public boolean setValue(Context context,String TableName, String ColumnName, String id, String value)
+    public boolean setValue(String TableName, String ColumnName, String id, String value)
     {
         try {
-            // Assuming you have a method in SQLServerConnect class to establish the connection
-            if (conn != null) {
-                String query;
-                if(TableName.equals("Application_User"))
-                {
-                    query = "UPDATE "+TableName+" SET "+ColumnName+" = '"+value+"' WHERE ID = ?";
-                }
-                else
-                {
-                    query = "UPDATE "+TableName+" SET "+ColumnName+" = '"+value+"' WHERE User_ID = ?";
-                }
-                PreparedStatement statement = conn.prepareStatement(query);
-                statement.setInt(1, Integer.parseInt(id));
-                int rowsAffected = statement.executeUpdate();
-
-                // Check if the update was successful
-                if (rowsAffected > 0) {
-                    return true;
-                }
+            String query;
+            if(TableName.equals("Application_User"))
+            {
+                query = "UPDATE "+TableName+" SET "+ColumnName+" = '"+value+"' WHERE ID = ?";
             }
+            else
+            {
+                query = "UPDATE "+TableName+" SET "+ColumnName+" = '"+value+"' WHERE User_ID = ?";
+            }
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, Integer.parseInt(id));
+            int rowsAffected = statement.executeUpdate();
 
+            // Check if the update was successful
+            if (rowsAffected > 0) {
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -193,54 +177,50 @@ public class SQLServerConnect {
         return false;
     }
 
-    public boolean insertRow(Context context,String TableName, String[] ColumnNames, String[] values)
+    public boolean insertRow(String TableName, String[] ColumnNames, String[] values)
     {
         try {
-            if (conn != null) {
-                StringBuilder query = new StringBuilder("INSERT INTO " + TableName + "(");
-                for(int i=0;i< ColumnNames.length;i++)
+            StringBuilder query = new StringBuilder("INSERT INTO " + TableName + "(");
+            for(int i=0;i< ColumnNames.length;i++)
+            {
+                query.append(ColumnNames[i]);
+                if(i== ColumnNames.length-1)
                 {
-                    query.append(ColumnNames[i]);
-                    if(i== ColumnNames.length-1)
-                    {
-                        query.append(") Values (");
-                        continue;
-                    }
-                    query.append(", ");
+                    query.append(") Values (");
+                    continue;
                 }
-                for (int i=0;i< ColumnNames.length;i++)
+                query.append(", ");
+            }
+            for (int i=0;i< ColumnNames.length;i++)
+            {
+                query.append("'");
+                query.append(values[i]);
+                query.append("'");
+                if(i==ColumnNames.length-1)
                 {
-                    query.append("'");
-                    query.append(values[i]);
-                    query.append("'");
-                    if(i==ColumnNames.length-1)
-                    {
-                        query.append(")");
-                        continue;
-                    }
-                    query.append(", ");
+                    query.append(")");
+                    continue;
                 }
-                Statement statement = conn.createStatement();
-                Log.e("testing", query.toString());
-                int rowsAffected = statement.executeUpdate(query.toString());
+                query.append(", ");
+            }
+            Statement statement = conn.createStatement();
+            Log.e("testing", query.toString());
+            int rowsAffected = statement.executeUpdate(query.toString());
 
-                // Check if the update was successful
-                if (rowsAffected > 0) {
-                    statement.execute("COMMIT");
-                    return true;
-                }
+            // Check if the update was successful
+            if (rowsAffected > 0) {
+                statement.execute("COMMIT");
+                return true;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return false;
     }
 
     public String[] getRow(String tableName, String[] columns, String[] defaultValue) {
         String[] resultArray = null;
-
         try {
             String columnNames = String.join(", ", columns);
             String query = String.format("SELECT %s FROM %s WHERE %s = '%s';", columnNames, tableName, defaultValue[0], defaultValue[1]);
@@ -252,11 +232,10 @@ public class SQLServerConnect {
                     resultArray[i] = resultSet.getString(columns[i]);
                 }
             }
-
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
-
         return resultArray;
     }
 
@@ -264,19 +243,12 @@ public class SQLServerConnect {
     {
         int count = 0;
         try {
-            // Assuming you have a method in SQLServerConnect class to establish the connection
-            if (conn != null) {
-                Statement statement = conn.createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) AS count_value FROM "+TableName+" WHERE "+ColumnName+" = '"+value+"'");
-                if(resultSet.next())
-                {
-                    count = resultSet.getInt("count_value");
-                }
-                if(count>0)
-                {
-                    return true;
-                }
-            }
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) AS count_value FROM "+TableName+" WHERE "+ColumnName+" = '"+value+"'");
+            if(resultSet.next())
+                count = resultSet.getInt("count_value");
+            if(count>0)
+                return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
