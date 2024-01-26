@@ -4,6 +4,7 @@ import static com.example.dg_bank.Data.convertBooltoString;
 import static com.example.dg_bank.Data.getStringIndexInArray;
 
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.core.app.SharedElementCallback;
@@ -63,20 +64,12 @@ public class ZakatFragment extends Fragment {
         exemption_spinner.setEnabled(zakat.isChecked());
         info.setEnabled(zakat.isChecked());
 
-        zakat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                exemption_spinner.setEnabled(!exemption_spinner.isEnabled());
-                info.setEnabled(!info.isEnabled());
-            }
+        zakat.setOnClickListener(view -> {
+            exemption_spinner.setEnabled(!exemption_spinner.isEnabled());
+            info.setEnabled(!info.isEnabled());
         });
 
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                submit();
-            }
-        });
+        submit.setOnClickListener(view -> new SubmitTask().execute());
 
         return rootView;
     }
@@ -125,29 +118,46 @@ public class ZakatFragment extends Fragment {
         return true;
     }
 
-    public void submit() {
-        if (validate()) {
-            //Inserting personal information
-            String[] columns = {"ID", "User_ID", "FirstName", "SecondName", "FatherName", "MotherName", "Gender", "DOB", "Married", "Nationality", "Education", "Residence", "Profession", "Designation", "CNIC", "CNIC_issue", "CNIC_expiry", "BirthPlace", "Balance"};
-            String[] values = {String.valueOf(Data.sqlManager.getNextID(getContext(),"Personal_Info")), Data.CurrentUserID, Data.FirstName, Data.LastName, Data.FatherName, Data.MotherName, getStringIndexInArray(Data.Gender, R.array.Gender, getResources()), Data.DOB, getStringIndexInArray(Data.Marital_Status, R.array.Marital_Status, getResources()), getStringIndexInArray(Data.Nationality, R.array.Countries, getResources()), getStringIndexInArray(Data.Education, R.array.Education, getResources()), getStringIndexInArray(Data.Residence, R.array.Countries, getResources()), getStringIndexInArray(Data.Profession, R.array.Profession, getResources()), Data.Designation, Data.CNIC, Data.CNIC_Issue, Data.CNIC_Expiry, getStringIndexInArray(Data.BirthPlace, R.array.Countries, getResources()), "0"};
-            boolean s1 = Data.sqlManager.insertRow(getContext(), "Personal_Info", columns, values);
+    private class SubmitTask extends AsyncTask<Void, Void, Boolean[]>
+    {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            submit.setEnabled(false);
+        }
 
-            //Inserting Contact Information
-            String[] columns1 = {"ID","User_ID","Country","City","PAddress","CAddress","Postal_Code","Mobile","Phone","Email"};
-            String[] values1 = {String.valueOf(Data.sqlManager.getNextID(getContext(),"Contact")), Data.CurrentUserID, getStringIndexInArray(Data.Country, R.array.Countries, getResources()),Data.City, Data.Permenant_Address, Data.Current_Address, Data.Postal_Code, Data.Mobile, Data.Phone, Data.Email };
-            boolean s2 = Data.sqlManager.insertRow(getContext(), "Contact", columns1, values1);
+        @Override
+        protected Boolean[] doInBackground(Void... voids) {
+            Boolean[] result = new Boolean[4];
+            if (validate()) {
+                //Inserting personal information
+                String[] columns = {"ID", "User_ID", "FirstName", "SecondName", "FatherName", "MotherName", "Gender", "DOB", "Married", "Nationality", "Education", "Residence", "Profession", "Designation", "CNIC", "CNIC_issue", "CNIC_expiry", "BirthPlace", "Balance"};
+                String[] values = {String.valueOf(Data.sqlManager.getNextID(getContext(),"Personal_Info")), Data.CurrentUserID, Data.FirstName, Data.LastName, Data.FatherName, Data.MotherName, getStringIndexInArray(Data.Gender, R.array.Gender, getResources()), Data.DOB, getStringIndexInArray(Data.Marital_Status, R.array.Marital_Status, getResources()), getStringIndexInArray(Data.Nationality, R.array.Countries, getResources()), getStringIndexInArray(Data.Education, R.array.Education, getResources()), getStringIndexInArray(Data.Residence, R.array.Countries, getResources()), getStringIndexInArray(Data.Profession, R.array.Profession, getResources()), Data.Designation, Data.CNIC, Data.CNIC_Issue, Data.CNIC_Expiry, getStringIndexInArray(Data.BirthPlace, R.array.Countries, getResources()), "0"};
+                result[0] = Data.sqlManager.insertRow(getContext(), "Personal_Info", columns, values);
 
-            //Inserting account information
-            String[] columns2 = {"ID","User_ID","Type","Currency","Title","US_Nationality","US_Birth","US_Address","US_link"};
-            String[] values2 = {String.valueOf(Data.sqlManager.getNextID(getContext(),"Account")), Data.CurrentUserID, getStringIndexInArray(Data.Account_Type, R.array.Account_Types, getResources()),getStringIndexInArray(Data.Currency, R.array.Currency, getResources()), Data.Account_Title, convertBooltoString(Data.US_National), convertBooltoString(Data.US_BirthPlace), convertBooltoString(Data.US_Address), convertBooltoString(Data.US_Links)};
-            boolean s3 = Data.sqlManager.insertRow(getContext(), "Account", columns2, values2);
+                //Inserting Contact Information
+                String[] columns1 = {"ID","User_ID","Country","City","PAddress","CAddress","Postal_Code","Mobile","Phone","Email"};
+                String[] values1 = {String.valueOf(Data.sqlManager.getNextID(getContext(),"Contact")), Data.CurrentUserID, getStringIndexInArray(Data.Country, R.array.Countries, getResources()),Data.City, Data.Permenant_Address, Data.Current_Address, Data.Postal_Code, Data.Mobile, Data.Phone, Data.Email };
+                result[1] = Data.sqlManager.insertRow(getContext(), "Contact", columns1, values1);
 
-            //Inserting zakaat Information
-            String[] columns3 = {"ID","User_ID","Zakat_Exemption","Exemption_type","AdditionalInfo"};
-            String[] values3 = {String.valueOf(Data.sqlManager.getNextID(getContext(),"Zakaat")), Data.CurrentUserID, convertBooltoString(Data.Zakaat), getStringIndexInArray(Data.Zakat_Exemption_Type, R.array.Exemption_Type, getResources()), Data.Additional_Info};
-            boolean s4 = Data.sqlManager.insertRow(getContext(), "Zakaat", columns3, values3);
+                //Inserting account information
+                String[] columns2 = {"ID","User_ID","Type","Currency","Title","US_Nationality","US_Birth","US_Address","US_link"};
+                String[] values2 = {String.valueOf(Data.sqlManager.getNextID(getContext(),"Account")), Data.CurrentUserID, getStringIndexInArray(Data.Account_Type, R.array.Account_Types, getResources()),getStringIndexInArray(Data.Currency, R.array.Currency, getResources()), Data.Account_Title, convertBooltoString(Data.US_National), convertBooltoString(Data.US_BirthPlace), convertBooltoString(Data.US_Address), convertBooltoString(Data.US_Links)};
+                result[2] = Data.sqlManager.insertRow(getContext(), "Account", columns2, values2);
 
-            if (s1 && s2 && s3 && s4) {
+                //Inserting zakaat Information
+                String[] columns3 = {"ID","User_ID","Zakat_Exemption","Exemption_type","AdditionalInfo"};
+                String[] values3 = {String.valueOf(Data.sqlManager.getNextID(getContext(),"Zakaat")), Data.CurrentUserID, convertBooltoString(Data.Zakaat), getStringIndexInArray(Data.Zakat_Exemption_Type, R.array.Exemption_Type, getResources()), Data.Additional_Info};
+                result[3] = Data.sqlManager.insertRow(getContext(), "Zakaat", columns3, values3);
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean[] booleans) {
+            super.onPostExecute(booleans);
+            submit.setEnabled(true);
+            if (booleans[0] && booleans[1] && booleans[2] && booleans[3]) {
                 if (accountOpenResultListener != null) {
                     accountOpenResultListener.onAccountOpenResult(true);
                 }
@@ -158,6 +168,4 @@ public class ZakatFragment extends Fragment {
             }
         }
     }
-
-
 }

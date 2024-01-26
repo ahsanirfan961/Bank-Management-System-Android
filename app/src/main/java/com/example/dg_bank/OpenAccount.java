@@ -3,9 +3,8 @@ package com.example.dg_bank;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -13,14 +12,12 @@ import com.google.android.material.tabs.TabLayout;
 public class OpenAccount extends AppCompatActivity implements ZakatFragment.AccountOpenResultListener{
     TabLayout tab;
     ViewPager viewpager;
-
-
-
+    ProgressBar progressBar;
     @Override
     public void onAccountOpenResult(boolean success) {
         if (success) {
             // Account opened successfully, do any additional handling if needed
-            Toast.makeText(this, "Account opened successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Account opened successfully\nLogin again to reflect changes", Toast.LENGTH_SHORT).show();
             setResult(RESULT_OK); // Set the result as RESULT_OK to indicate success
             finish();
         } else {
@@ -30,15 +27,13 @@ public class OpenAccount extends AppCompatActivity implements ZakatFragment.Acco
         }
     }
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_account);
         tab = findViewById(R.id.tabLayout);
         viewpager = findViewById(R.id.view_pager);
+        progressBar = findViewById(R.id.pg_account_open);
         ViewPagerMessengerAdaptor adaptor = new ViewPagerMessengerAdaptor(getSupportFragmentManager());
         viewpager.setAdapter(adaptor);
         tab.setupWithViewPager(viewpager);
@@ -53,7 +48,7 @@ public class OpenAccount extends AppCompatActivity implements ZakatFragment.Acco
                 if(position==3)
                 {
                     PersonalInfoFragment PersonalInfofragment = (PersonalInfoFragment) adaptor.instantiateItem(viewpager, 0);
-                    PersonalInfofragment.saveData(OpenAccount.this);
+                    PersonalInfofragment.saveData();
                     ContactFragment contact = (ContactFragment)  adaptor.instantiateItem(viewpager, 1);
                     contact.saveData();
                     AccountFragment account = (AccountFragment)  adaptor.instantiateItem(viewpager, 2);

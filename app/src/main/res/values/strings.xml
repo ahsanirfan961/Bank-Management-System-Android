@@ -332,5 +332,10 @@
         <item>Master Card</item>
         <item>Pakpay Card</item>
     </string-array>
+    <string-array name="Cheques">
+        <item>25</item>
+        <item>50</item>
+        <item>75</item>
+    </string-array>
     <string name="CurrentUserID">1</string>
 </resources>

@@ -1,7 +1,5 @@
 package com.example.dg_bank;
 
-import static java.security.AccessController.getContext;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,7 +16,7 @@ import androidx.fragment.app.Fragment;
 public class PersonalInfoFragment extends Fragment {
 
     Button dobPicker, issuePicker, expiryPicker;
-    MyDatePicker DOB_datepicker, issue_datepicker, expiry_datepicker;
+    MyDatePicker DOB_datePicker, issue_datePicker, expiry_datePicker;
     LinearLayout linearLayout;
     Spinner gender_spinner, marital_spinner, education_spinner, birth_place_spinner, nationality_spinner, residence_spinner, profession_spinner;
     EditText fname_edit, lname_edit, mname_edit, fathername_edit, designation_entry, cnic_edit;
@@ -45,44 +43,29 @@ public class PersonalInfoFragment extends Fragment {
         cnic_edit = rootView.findViewById(R.id.cnic_edit);
         designation_entry = rootView.findViewById(R.id.designation_entry);
 
-        DOB_datepicker = new MyDatePicker(getContext());
-        issue_datepicker = new MyDatePicker(getContext());
-        expiry_datepicker = new MyDatePicker(getContext());
+        DOB_datePicker = new MyDatePicker(getContext());
+        issue_datePicker = new MyDatePicker(getContext());
+        expiry_datePicker = new MyDatePicker(getContext());
 
-        DOB_datepicker.setButton(dobPicker);
-        issue_datepicker.setButton(issuePicker);
-        expiry_datepicker.setButton(expiryPicker);
+        DOB_datePicker.setButton(dobPicker);
+        issue_datePicker.setButton(issuePicker);
+        expiry_datePicker.setButton(expiryPicker);
 
-        dobPicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleCalendar(DOB_datepicker);
-            }
-        });
-        issuePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleCalendar(issue_datepicker);
-            }
-        });
-        expiryPicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleCalendar(expiry_datepicker);
-            }
-        });
+        dobPicker.setOnClickListener(v -> toggleCalendar(DOB_datePicker));
+        issuePicker.setOnClickListener(v -> toggleCalendar(issue_datePicker));
+        expiryPicker.setOnClickListener(v -> toggleCalendar(expiry_datePicker));
 
 
-        linearLayout.addView(DOB_datepicker, linearLayout.indexOfChild(rootView.findViewById(R.id.DOB_card)) + 1);
-        linearLayout.addView(issue_datepicker, linearLayout.indexOfChild(rootView.findViewById(R.id.issue_card)) + 1);
-        linearLayout.addView(expiry_datepicker, linearLayout.indexOfChild(rootView.findViewById(R.id.expiry_card)) + 1);
+        linearLayout.addView(DOB_datePicker, linearLayout.indexOfChild(rootView.findViewById(R.id.DOB_card)) + 1);
+        linearLayout.addView(issue_datePicker, linearLayout.indexOfChild(rootView.findViewById(R.id.issue_card)) + 1);
+        linearLayout.addView(expiry_datePicker, linearLayout.indexOfChild(rootView.findViewById(R.id.expiry_card)) + 1);
 
-        DOB_datepicker.getLayoutParams().height = 0;
-        DOB_datepicker.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
-        issue_datepicker.getLayoutParams().height = 0;
-        issue_datepicker.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
-        expiry_datepicker.getLayoutParams().height = 0;
-        expiry_datepicker.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        DOB_datePicker.getLayoutParams().height = 0;
+        DOB_datePicker.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        issue_datePicker.getLayoutParams().height = 0;
+        issue_datePicker.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        expiry_datePicker.getLayoutParams().height = 0;
+        expiry_datePicker.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
 
 
         ArrayAdapter<CharSequence> adaptor = ArrayAdapter.createFromResource(getContext(),R.array.Gender, android.R.layout.simple_spinner_dropdown_item);
@@ -102,21 +85,21 @@ public class PersonalInfoFragment extends Fragment {
         return rootView;
     }
 
-    public void toggleCalendar(MyDatePicker datepicker) {
-        if (datepicker.isCalendarOpen) {
+    public void toggleCalendar(MyDatePicker datePicker) {
+        if (datePicker.isCalendarOpen) {
             // If the calendar is open (height is wrap_content), set it to 0dp
-            datepicker.getLayoutParams().height = 0;
-            datepicker.isCalendarOpen = false;
+            datePicker.getLayoutParams().height = 0;
+            datePicker.isCalendarOpen = false;
         } else {
             // If the calendar is closed (height is 0dp), set it to wrap_content
-            datepicker.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            datepicker.isCalendarOpen = true;
+            datePicker.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            datePicker.isCalendarOpen = true;
         }
         // Request a layout update to apply the height change
-        datepicker.requestLayout();
+        datePicker.requestLayout();
     }
 
-    public void saveData(Context context) {
+    public void saveData() {
 
         Data.FirstName = fname_edit.getText().toString().trim();
         Data.LastName = lname_edit.getText().toString().trim();

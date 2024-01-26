@@ -120,6 +120,7 @@
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/rounded_button"
                     android:foreground="@drawable/click_feedback"
+                    android:onClick="goto_chequeBook"
                     android:scaleType="centerInside"
                     app:srcCompat="@drawable/cheque" />
 
@@ -193,7 +194,8 @@
                     android:background="@drawable/rounded_button"
                     android:foreground="@drawable/click_feedback"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/statement" />
+                    app:srcCompat="@drawable/statement"
+                    android:onClick="goto_statement"/>
 
                 <TextView
                     android:id="@+id/textView13"

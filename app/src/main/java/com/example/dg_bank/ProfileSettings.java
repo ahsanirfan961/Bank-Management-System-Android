@@ -39,34 +39,20 @@ public class ProfileSettings extends AppCompatActivity {
         username.setEnabled(false);
         saveButton.setEnabled(false);
 
-        fname_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fname.setEnabled(!fname.isEnabled());
-                saveButton.setEnabled(fname.isEnabled()||lname.isEnabled()||username.isEnabled());
-            }
+        fname_edit.setOnClickListener(view -> {
+            fname.setEnabled(!fname.isEnabled());
+            saveButton.setEnabled(fname.isEnabled()||lname.isEnabled()||username.isEnabled());
         });
-        lname_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                lname.setEnabled(!lname.isEnabled());
-                saveButton.setEnabled(fname.isEnabled()||lname.isEnabled()||username.isEnabled());
-            }
+        lname_edit.setOnClickListener(view -> {
+            lname.setEnabled(!lname.isEnabled());
+            saveButton.setEnabled(fname.isEnabled()||lname.isEnabled()||username.isEnabled());
         });
-        username_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                username.setEnabled(!username.isEnabled());
-                saveButton.setEnabled(fname.isEnabled()||lname.isEnabled()||username.isEnabled());
-            }
+        username_edit.setOnClickListener(view -> {
+            username.setEnabled(!username.isEnabled());
+            saveButton.setEnabled(fname.isEnabled()||lname.isEnabled()||username.isEnabled());
         });
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new SaveTask().execute();
-            }
-        });
+        saveButton.setOnClickListener(view -> new SaveTask().execute());
 
         new UpdateTask().execute();
     }

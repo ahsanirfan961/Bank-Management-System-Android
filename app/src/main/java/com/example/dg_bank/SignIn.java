@@ -1,6 +1,5 @@
 package com.example.dg_bank;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -66,7 +65,7 @@ public class SignIn extends AppCompatActivity {
                 {
                     Data.CurrentUserID = credentials[0];
                     Data.CurrentUserName = credentials[1] + " " + credentials[2];
-                    Data.accountExist = Data.sqlManager.doesExist(SignIn.this, "Personal_Info", "User_ID", Data.CurrentUserID);
+                    Data.accountExist = Data.sqlManager.doesExist("Personal_Info", "User_ID", Data.CurrentUserID);
                     if(Data.accountExist)
                     {
                         Data.CurrentBalance = Data.sqlManager.getBalance(SignIn.this, Data.CurrentUserID);

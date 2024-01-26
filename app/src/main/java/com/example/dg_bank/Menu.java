@@ -37,12 +37,7 @@ public class Menu extends AppCompatActivity {
         ImageButton refresh = findViewById(R.id.refreshButton);
 
         progressBar.setVisibility(View.INVISIBLE);
-        refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new UpdateMenuTask().execute();
-            }
-        });
+        refresh.setOnClickListener(view -> new UpdateMenuTask().execute());
         update();
     }
 
@@ -88,7 +83,7 @@ public class Menu extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Data.accountExist = Data.sqlManager.doesExist(Menu.this, "Personal_Info", "User_ID", Data.CurrentUserID);
+            Data.accountExist = Data.sqlManager.doesExist("Personal_Info", "User_ID", Data.CurrentUserID);
             if(Data.accountExist)
             {
                 Data.CurrentBalance = Data.sqlManager.getBalance(Menu.this, Data.CurrentUserID);
@@ -105,29 +100,34 @@ public class Menu extends AppCompatActivity {
             Toast.makeText(Menu.this, "Balanced Refreshed!", Toast.LENGTH_SHORT).show();
         }
     }
-
-
     public void goto_profileSetting(View v)
     {
         Intent intent = new Intent(this, ProfileSettings.class);
         startActivity(intent);
     }
-
     public void goto_verify(View v)
     {
         Intent intent = new Intent(this, VerifyAccount.class);
         startActivity(intent);
     }
-
     public void goto_account(View v)
     {
         Intent intent = new Intent(this, Account.class);
         startActivity(intent);
     }
-
     public void goto_card(View v)
     {
         Intent intent = new Intent(this, Cards.class);
+        startActivity(intent);
+    }
+    public void goto_chequeBook(View v)
+    {
+        Intent intent = new Intent(this, ChequeBook.class);
+        startActivity(intent);
+    }
+    public void goto_statement(View v)
+    {
+        Intent intent = new Intent(this, AccountStatement.class);
         startActivity(intent);
     }
 }

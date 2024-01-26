@@ -3,7 +3,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.StrictMode;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.sql.*;
 import java.util.Objects;
@@ -261,7 +260,7 @@ public class SQLServerConnect {
         return resultArray;
     }
 
-    public boolean doesExist(Context context, String TableName, String ColumnName, String value)
+    public boolean doesExist(String TableName, String ColumnName, String value)
     {
         int count = 0;
         try {
@@ -282,5 +281,20 @@ public class SQLServerConnect {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public ResultSet getQuery(String query)
+    {
+        ResultSet resultSet = null;
+        try
+        {
+            Statement statement = conn.createStatement();
+            resultSet = statement.executeQuery(query);
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return resultSet;
     }
 }

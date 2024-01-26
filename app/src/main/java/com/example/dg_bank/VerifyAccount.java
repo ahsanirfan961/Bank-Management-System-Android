@@ -42,7 +42,7 @@ public class VerifyAccount extends AppCompatActivity {
     }
 
     public boolean isIdValid(String id) {
-        return Data.sqlManager.doesExist(this, "Personal_Info", "User_ID", id);
+        return Data.sqlManager.doesExist("Personal_Info", "User_ID", id);
     }
 
     private class VerifyAccountTask extends AsyncTask<String, Void, Boolean>

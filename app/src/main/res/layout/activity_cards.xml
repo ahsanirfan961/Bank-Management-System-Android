@@ -61,7 +61,7 @@
             app:layout_constraintVertical_bias="0.062">
 
             <Button
-                android:id="@+id/account_setting"
+                android:id="@+id/my_cards"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/create_account"
+                android:id="@+id/new_card"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
