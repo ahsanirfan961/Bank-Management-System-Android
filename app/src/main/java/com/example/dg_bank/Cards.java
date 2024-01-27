@@ -69,5 +69,10 @@ public class Cards extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void goto_myCards(View v)
+    {
+        Intent intent = new Intent(this, MyCards.class);
+        startActivity(intent);
+    }
 
 }

@@ -17,7 +17,7 @@ public class SignIn extends AppCompatActivity {
     EditText username, password;
     ProgressBar progressBar;
     Button signIn;
-    boolean status;
+    int status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class SignIn extends AppCompatActivity {
     }
     public void goto_menu(View v) {
         progressBar.setVisibility(View.VISIBLE);
-        status = false;
+        status = -1;
         String user = username.getText().toString().trim();
         String pass = password.getText().toString();
         if (user.equals("") || pass.equals("")) {
@@ -40,31 +40,30 @@ public class SignIn extends AppCompatActivity {
             progressBar.setVisibility(View.INVISIBLE);
             return;
         }
+
         new SignInAsyncTask().execute(user, pass);
     }
 
 
     private class SignInAsyncTask extends AsyncTask<String, Void, String>
     {
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             progressBar.setVisibility(View.VISIBLE);
             signIn.setEnabled(false);
-            if(!Data.sqlManager.checkConn(SignIn.this)) {
-                progressBar.setVisibility(View.INVISIBLE);
-                signIn.setEnabled(true);
-                cancel(true);
-            }
         }
         @Override
         protected String doInBackground(String... strings) {
+            if(Data.sqlManager.conn == null) {
+                Data.sqlManager.getConn();
+                status = -1;
+                return null;
+            }
             String[] credentials = Data.sqlManager.getRow("Application_User", new String[]{"ID", "First_Name", "Last_Name", "Email", "Password"}, new String[]{"Email", username.getText().toString().trim()});
             if (credentials == null)
-            {
-                progressBar.setVisibility(View.INVISIBLE);
-                status = false;
-            }
+                status = 0;
             else {
                 if(Objects.equals(credentials[4], password.getText().toString().trim()))
                 {
@@ -76,11 +75,10 @@ public class SignIn extends AppCompatActivity {
                         Data.CurrentBalance = Data.sqlManager.getBalance(Data.CurrentUserID);
                         Data.CurrentGender = Data.sqlManager.getValue("Personal_Info", "Gender", Data.CurrentUserID);
                     }
-                    status = true;
+                    status = 1;
                 }
-                else {
-                    status = false;
-                }
+                else
+                    status = 0;
             }
             return null;
         }
@@ -90,15 +88,15 @@ public class SignIn extends AppCompatActivity {
             super.onPostExecute(s);
             progressBar.setVisibility(View.INVISIBLE);
             signIn.setEnabled(true);
-            if(status)
+            if(status == 1)
             {
                 Intent intent = new Intent(SignIn.this, Menu.class);
                 startActivity(intent);
             }
-            else
-            {
+            else if(status == 0)
                 Toast.makeText(SignIn.this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
-            }
+            else
+                Toast.makeText(SignIn.this, "Connection error", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Cards">
+    tools:context=".MyCards">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -41,47 +41,39 @@
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/seguibl"
-            android:text="Card Management"
+            android:text="My Cards"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
-        <LinearLayout
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+
+        <ProgressBar
+            android:id="@+id/pg_my_cards"
+            android:layout_width="100sp"
+            android:layout_height="100sp"
+            android:layout_centerInParent="true"
+            android:elevation="10sp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView10"
-            app:layout_constraintVertical_bias="0.062">
+            app:layout_constraintTop_toTopOf="@+id/textView10"
+            app:layout_constraintVertical_bias="0.372" />
 
-            <Button
-                android:id="@+id/my_cards"
-                style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/seguibl"
-                android:onClick="goto_myCards"
-                android:text="My Cards"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/new_card"
-                style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/seguibl"
-                android:onClick="goto_newCard"
-                android:text="Create New Debit Card"
-                android:textSize="16sp" />
-        </LinearLayout>
-
+        <ListView
+            android:id="@+id/card_list"
+            android:layout_width="411dp"
+            android:layout_height="577dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

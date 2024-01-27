@@ -103,7 +103,6 @@ public class NewCard extends AppCompatActivity {
                     card_spinner.setSelection(i);
                     break;
                 }
-
         }
     }
     public boolean validate()

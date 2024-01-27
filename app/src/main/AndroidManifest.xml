@@ -16,6 +16,12 @@
         android:theme="@style/Theme.DG_Bank"
         tools:targetApi="31">
         <activity
+            android:name=".CardView"
+            android:exported="false" />
+        <activity
+            android:name=".MyCards"
+            android:exported="false" />
+        <activity
             android:name=".AccountStatement"
             android:exported="false" />
         <activity
