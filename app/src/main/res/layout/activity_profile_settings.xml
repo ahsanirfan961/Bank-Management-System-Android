@@ -16,7 +16,7 @@
             android:id="@+id/textView18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="56sp"
             android:fontFamily="@font/seguibl"
             android:text="Personal Details:"
             android:textSize="16sp"
@@ -27,9 +27,9 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="579dp"
-            android:layout_height="252dp"
-            android:translationY="-120dp"
+            android:layout_width="579sp"
+            android:layout_height="252sp"
+            android:translationY="-120sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -40,8 +40,8 @@
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="201dp"
-            android:layout_height="154dp"
+            android:layout_width="201sp"
+            android:layout_height="154sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.476"
@@ -54,7 +54,7 @@
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="8sp"
             android:fontFamily="@font/seguibl"
             android:text="Profile Settings"
             android:textSize="24sp"
@@ -65,8 +65,8 @@
 
         <Button
             android:id="@+id/save_button_password"
-            android:layout_width="156dp"
-            android:layout_height="50dp"
+            android:layout_width="156sp"
+            android:layout_height="50sp"
             android:fontFamily="@font/seguibl"
             android:text="Save"
             android:textSize="16sp"
@@ -81,8 +81,8 @@
             android:id="@+id/cardView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="5dp"
+            app:cardCornerRadius="15sp"
+            app:cardElevation="5sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -92,8 +92,8 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
-                android:layout_width="310dp"
-                android:layout_height="194dp"
+                android:layout_width="310sp"
+                android:layout_height="194sp"
                 android:background="@drawable/rounded_button"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -107,9 +107,9 @@
                     android:id="@+id/textView22"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="5sp"
                     android:fontFamily="@font/seguibl"
-                    android:paddingLeft="10dp"
+                    android:paddingLeft="10sp"
                     android:text="First Name:"
                     android:textSize="12sp" />
 
@@ -117,11 +117,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingLeft="10dp">
+                    android:paddingLeft="10sp">
 
                     <EditText
                         android:id="@+id/fname_editText"
-                        android:layout_width="220dp"
+                        android:layout_width="220sp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
@@ -131,7 +131,7 @@
 
                     <ImageButton
                         android:id="@+id/fname_editButton"
-                        android:layout_width="8dp"
+                        android:layout_width="8sp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:backgroundTint="#FFFFFF"
@@ -144,7 +144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/seguibl"
-                    android:paddingLeft="10dp"
+                    android:paddingLeft="10sp"
                     android:text="Last Name:"
                     android:textSize="12sp" />
 
@@ -152,11 +152,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingLeft="10dp">
+                    android:paddingLeft="10sp">
 
                     <EditText
                         android:id="@+id/lname_editText"
-                        android:layout_width="220dp"
+                        android:layout_width="220sp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
@@ -166,7 +166,7 @@
 
                     <ImageButton
                         android:id="@+id/lname_editButton"
-                        android:layout_width="8dp"
+                        android:layout_width="8sp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:backgroundTint="#FFFFFF"
@@ -179,7 +179,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/seguibl"
-                    android:paddingLeft="10dp"
+                    android:paddingLeft="10sp"
                     android:text="Username:"
                     android:textSize="12sp" />
 
@@ -187,11 +187,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingLeft="10dp">
+                    android:paddingLeft="10sp">
 
                     <EditText
                         android:id="@+id/username_editText"
-                        android:layout_width="220dp"
+                        android:layout_width="220sp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
@@ -201,7 +201,7 @@
 
                     <ImageButton
                         android:id="@+id/username_editButton"
-                        android:layout_width="8dp"
+                        android:layout_width="8sp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:backgroundTint="#FFFFFF"
@@ -214,8 +214,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
+            app:cardCornerRadius="10sp"
+            app:cardElevation="5sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -224,8 +224,8 @@
             app:layout_constraintVertical_bias="0.26">
 
             <LinearLayout
-                android:layout_width="310dp"
-                android:layout_height="40dp"
+                android:layout_width="310sp"
+                android:layout_height="40sp"
                 android:background="@drawable/rounded_button"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -237,20 +237,20 @@
 
                 <TextView
                     android:id="@+id/textView24"
-                    android:layout_width="250dp"
-                    android:layout_height="40dp"
+                    android:layout_width="250sp"
+                    android:layout_height="40sp"
                     android:layout_weight="1"
                     android:fontFamily="@font/seguibl"
                     android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
+                    android:paddingLeft="10sp"
                     android:text="Change Password"
                     android:textSize="16sp" />
 
                 <ImageButton
                     android:id="@+id/changePassword_button"
-                    android:layout_width="0dp"
+                    android:layout_width="0sp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="14dp"
+                    android:layout_marginRight="14sp"
                     android:layout_weight="1"
                     android:background="#FFFFFF"
                     android:foreground="@drawable/click_feedback"

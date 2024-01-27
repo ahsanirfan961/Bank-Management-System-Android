@@ -14,9 +14,9 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="579dp"
-            android:layout_height="252dp"
-            android:translationY="-120dp"
+            android:layout_width="579sp"
+            android:layout_height="252sp"
+            android:translationY="-120sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -27,8 +27,8 @@
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="201dp"
-            android:layout_height="154dp"
+            android:layout_width="201sp"
+            android:layout_height="154sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.476"
@@ -41,7 +41,7 @@
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="8sp"
             android:fontFamily="@font/seguibl"
             android:text="Send Money"
             android:textSize="24sp"
@@ -53,8 +53,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="5dp"
+            app:cardCornerRadius="15sp"
+            app:cardElevation="5sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -64,8 +64,8 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
-                android:layout_width="310dp"
-                android:layout_height="194dp"
+                android:layout_width="310sp"
+                android:layout_height="194sp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -79,16 +79,16 @@
                     android:id="@+id/textView22"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="10sp"
                     android:fontFamily="@font/seguibl"
-                    android:paddingLeft="10dp"
+                    android:paddingLeft="10sp"
                     android:text="From Account:"
                     android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/from_account"
                     android:layout_width="match_parent"
-                    android:layout_height="34dp"
+                    android:layout_height="34sp"
                     android:gravity="center"
                     android:text="341 | Muhammad Ahsan" />
 
@@ -97,7 +97,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/seguibl"
-                    android:paddingLeft="10dp"
+                    android:paddingLeft="10sp"
                     android:text="To Account:"
                     android:textSize="12sp" />
 
@@ -105,8 +105,8 @@
                     android:id="@+id/amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="10sp"
                     android:ems="10"
                     android:hint="Enter Account ID"
                     android:inputType="text"
@@ -116,7 +116,7 @@
                     android:id="@+id/verify_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="10sp"
                     android:fontFamily="@font/seguibl"
                     android:onClick="goto_send_money"
                     android:text="Verify ID" />

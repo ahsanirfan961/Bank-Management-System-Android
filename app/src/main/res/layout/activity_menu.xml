@@ -14,9 +14,9 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="579dp"
-            android:layout_height="252dp"
-            android:translationY="-120dp"
+            android:layout_width="579sp"
+            android:layout_height="252sp"
+            android:translationY="-120sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -27,8 +27,8 @@
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="201dp"
-            android:layout_height="154dp"
+            android:layout_width="201sp"
+            android:layout_height="154sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.476"
@@ -41,7 +41,7 @@
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="8sp"
             android:fontFamily="@font/seguibl"
             android:text="What I Have"
             android:textSize="24sp"
@@ -52,18 +52,19 @@
 
         <LinearLayout
             android:id="@+id/linearLayout_settings"
-            android:layout_width="242dp"
-            android:layout_height="397dp"
+            android:layout_width="242sp"
+            android:layout_height="397sp"
+            android:layout_marginTop="16dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.52">
+            app:layout_constraintTop_toBottomOf="@+id/textView10"
+            app:layout_constraintVertical_bias="0.0">
 
             <LinearLayout
-                android:layout_width="120dp"
+                android:layout_width="120sp"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
@@ -71,9 +72,9 @@
                 <ImageButton
                     android:id="@+id/sendMoney_button"
                     style="@style/Widget.AppCompat.ImageButton"
-                    android:layout_width="85dp"
+                    android:layout_width="85sp"
 
-                    android:layout_height="85dp"
+                    android:layout_height="85sp"
                     android:background="@drawable/rounded_button"
                     android:onClick="goto_verify"
                     app:srcCompat="@mipmap/money_logo_foreground" />
@@ -82,7 +83,7 @@
                     android:id="@+id/textView111"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="15sp"
                     android:fontFamily="@font/seguibl"
                     android:text="Send Money"
                     android:textAlignment="center" />
@@ -90,10 +91,10 @@
                 <ImageButton
                     android:id="@+id/accountButton"
                     style="@android:style/Widget.Material.ImageButton"
-                    android:layout_width="85dp"
+                    android:layout_width="85sp"
 
-                    android:layout_height="85dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="85sp"
+                    android:layout_marginTop="10sp"
                     android:background="@drawable/rounded_button"
                     android:foreground="@drawable/click_feedback"
                     android:onClick="goto_account"
@@ -104,7 +105,7 @@
                     android:id="@+id/textView121"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="15sp"
                     android:fontFamily="@font/seguibl"
                     android:text="Account"
                     android:textAlignment="center" />
@@ -112,12 +113,12 @@
                 <ImageButton
                     android:id="@+id/chequeBook_button"
                     style="@android:style/Widget.Material.ImageButton"
-                    android:layout_width="85dp"
+                    android:layout_width="85sp"
 
-                    android:layout_height="85dp"
+                    android:layout_height="85sp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="10sp"
                     android:background="@drawable/rounded_button"
                     android:foreground="@drawable/click_feedback"
                     android:onClick="goto_chequeBook"
@@ -128,14 +129,14 @@
                     android:id="@+id/textView132"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="15sp"
                     android:fontFamily="@font/seguibl"
                     android:text="Cheque Book"
                     android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="120dp"
+                android:layout_width="120sp"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
@@ -143,9 +144,9 @@
                 <ImageButton
                     android:id="@+id/profile_button"
                     style="@android:style/Widget.Material.ImageButton"
-                    android:layout_width="85dp"
+                    android:layout_width="85sp"
 
-                    android:layout_height="85dp"
+                    android:layout_height="85sp"
                     android:background="@drawable/rounded_button"
                     android:foreground="@drawable/click_feedback"
                     android:onClick="goto_profileSetting"
@@ -156,7 +157,7 @@
                     android:id="@+id/textView11"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="15sp"
                     android:fontFamily="@font/seguibl"
                     android:text="Profile Settings"
                     android:textAlignment="center" />
@@ -164,10 +165,10 @@
                 <ImageButton
                     android:id="@+id/cardButton"
                     style="@android:style/Widget.Material.ImageButton"
-                    android:layout_width="85dp"
+                    android:layout_width="85sp"
 
-                    android:layout_height="85dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="85sp"
+                    android:layout_marginTop="10sp"
                     android:background="@drawable/rounded_button"
                     android:foreground="@drawable/click_feedback"
                     android:onClick="goto_card"
@@ -178,7 +179,7 @@
                     android:id="@+id/textView12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="15sp"
                     android:fontFamily="@font/seguibl"
                     android:text="Debit Cards"
                     android:textAlignment="center" />
@@ -186,22 +187,22 @@
                 <ImageButton
                     android:id="@+id/statementButton"
                     style="@android:style/Widget.Material.ImageButton"
-                    android:layout_width="85dp"
+                    android:layout_width="85sp"
 
-                    android:layout_height="85dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_height="85sp"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="10sp"
                     android:background="@drawable/rounded_button"
                     android:foreground="@drawable/click_feedback"
+                    android:onClick="goto_statement"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/statement"
-                    android:onClick="goto_statement"/>
+                    app:srcCompat="@drawable/statement" />
 
                 <TextView
                     android:id="@+id/textView13"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="15sp"
                     android:fontFamily="@font/seguibl"
                     android:text="E-Statement"
                     android:textAlignment="center" />
@@ -212,8 +213,8 @@
 
         <LinearLayout
             android:id="@+id/linearLayout2"
-            android:layout_width="340dp"
-            android:layout_height="174dp"
+            android:layout_width="340sp"
+            android:layout_height="174sp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -228,7 +229,7 @@
 
                 <TextView
                     android:id="@+id/textView145"
-                    android:layout_width="0dp"
+                    android:layout_width="0sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/seguibl"
@@ -237,7 +238,7 @@
 
                 <TextView
                     android:id="@+id/account_name"
-                    android:layout_width="120dp"
+                    android:layout_width="120sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/seguibl"
@@ -249,12 +250,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="10sp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView14"
-                    android:layout_width="0dp"
+                    android:layout_width="0sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/seguibl"
@@ -263,7 +264,7 @@
 
                 <TextView
                     android:id="@+id/account_id"
-                    android:layout_width="120dp"
+                    android:layout_width="120sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/seguibl"
@@ -276,7 +277,7 @@
                 android:id="@+id/balance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="20sp"
                 android:fontFamily="@font/seguibl"
                 android:text="0"
                 android:textAlignment="center"
@@ -295,9 +296,9 @@
 
         <ImageButton
             android:id="@+id/refreshButton"
-            android:layout_width="23dp"
-            android:layout_height="22dp"
-            android:layout_marginTop="28dp"
+            android:layout_width="23sp"
+            android:layout_height="22sp"
+            android:layout_marginTop="28sp"
             android:background="@drawable/circle_button"
             android:scaleType="centerInside"
             android:scaleX="3"

@@ -14,9 +14,9 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="579dp"
-            android:layout_height="252dp"
-            android:translationY="-120dp"
+            android:layout_width="579sp"
+            android:layout_height="252sp"
+            android:translationY="-120sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -27,8 +27,8 @@
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="201dp"
-            android:layout_height="154dp"
+            android:layout_width="201sp"
+            android:layout_height="154sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.476"
@@ -41,7 +41,7 @@
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="16sp"
             android:fontFamily="@font/seguibl"
             android:text="New Debit Card"
             android:textSize="24sp"
@@ -50,7 +50,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
         <LinearLayout
-            android:layout_width="310dp"
+            android:layout_width="310sp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -62,9 +62,9 @@
             app:layout_constraintVertical_bias="0.062">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="290dp"
-                android:layout_height="180dp"
-                app:cardCornerRadius="10dp">
+                android:layout_width="290sp"
+                android:layout_height="180sp"
+                app:cardCornerRadius="10sp">
 
                 <ImageView
                     android:id="@+id/card_display"
@@ -78,7 +78,7 @@
                 android:id="@+id/textView361"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="30sp"
                 android:fontFamily="@font/seguibl"
                 android:text="Card Vendor:" />
 
@@ -86,15 +86,15 @@
                 android:id="@+id/card_card"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:elevation="5dp"
-                app:cardCornerRadius="20dp">
+                android:layout_margin="5sp"
+                android:elevation="5sp"
+                app:cardCornerRadius="20sp">
 
                 <Spinner
                     android:id="@+id/card_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="5sp"
                     android:spinnerMode="dropdown"
                     android:textAlignment="center" />
             </androidx.cardview.widget.CardView>
@@ -103,7 +103,7 @@
                 android:id="@+id/textView362"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="10sp"
                 android:fontFamily="@font/seguibl"
                 android:text="Card Title:" />
 
@@ -118,7 +118,7 @@
                 android:id="@+id/textView36"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="10sp"
                 android:fontFamily="@font/seguibl"
                 android:text="Enter T-PIN:" />
 

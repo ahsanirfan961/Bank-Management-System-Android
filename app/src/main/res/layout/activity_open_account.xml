@@ -14,9 +14,9 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="579dp"
-            android:layout_height="252dp"
-            android:translationY="-120dp"
+            android:layout_width="579sp"
+            android:layout_height="252sp"
+            android:translationY="-120sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -27,8 +27,8 @@
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="201dp"
-            android:layout_height="154dp"
+            android:layout_width="201sp"
+            android:layout_height="154sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.476"
@@ -60,8 +60,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Contact Details"
-                tools:layout_editor_absoluteX="144dp"
-                tools:layout_editor_absoluteY="341dp" />
+                tools:layout_editor_absoluteX="144sp"
+                tools:layout_editor_absoluteY="341sp" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
@@ -78,8 +78,8 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="575dp"
-            android:padding="10dp"
+            android:layout_height="575sp"
+            android:padding="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
