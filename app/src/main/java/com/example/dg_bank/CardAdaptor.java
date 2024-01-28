@@ -44,6 +44,7 @@ public class CardAdaptor extends BaseAdapter {
         TextView cvv = view.findViewById(R.id.card_cvv);
         TextView expiryDate = view.findViewById(R.id.card_expr);
         TextView title = view.findViewById(R.id.card_title_my_cards);
+        TextView status = view.findViewById(R.id.card_status);
         Switch lock = view.findViewById(R.id.card_lock);
         ImageView image = view.findViewById(R.id.card_image);
         String[] cardSegments = cards[i].cardNumber.split(" ");
@@ -54,6 +55,34 @@ public class CardAdaptor extends BaseAdapter {
         cvv.setText(cards[i].cvv);
         expiryDate.setText(cards[i].expiryDate);
         lock.setChecked(cards[i].lock);
+        if(cards[i].lock)
+            status.setText("Locked");
+        else
+            status.setText("Active");
+        lock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (lock.isChecked()) {
+                    new Thread(new Runnable() {
+                        public void run() {
+                            Data.sqlManager.updateQuery("UPDATE card SET lock = 'true' WHERE number = '" + cards[i].cardNumber + "'");
+                        }
+                    }).start();
+                    cards[i].lock = true;
+                    lock.setChecked(cards[i].lock);
+                    status.setText("Locked");
+                } else {
+                    new Thread(new Runnable() {
+                        public void run() {
+                            Data.sqlManager.updateQuery("UPDATE card SET lock = 'false' WHERE number = '" + cards[i].cardNumber + "'");
+                        }
+                    }).start();
+                    cards[i].lock = false;
+                    lock.setChecked(cards[i].lock);
+                    status.setText("Active");
+                }
+            }
+        });
         title.setText(cards[i].cardHolderName);
         if(Objects.equals(cards[i].cardType, "Visa Debit Card"))
             image.setImageResource(R.drawable.visa_card);

@@ -204,7 +204,6 @@ public class SQLServerConnect {
                 query.append(", ");
             }
             Statement statement = conn.createStatement();
-            Log.e("testing", query.toString());
             int rowsAffected = statement.executeUpdate(query.toString());
 
             // Check if the update was successful
@@ -268,5 +267,24 @@ public class SQLServerConnect {
             e.printStackTrace();
         }
         return resultSet;
+    }
+
+    public boolean updateQuery(String query)
+    {
+        try
+        {
+            Statement statement = conn.createStatement();
+            int rows = statement.executeUpdate(query);
+            if(rows > 0)
+            {
+                statement.execute("COMMIT");
+                return true;
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
